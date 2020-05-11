@@ -22,7 +22,6 @@ class MainFragment : Fragment() {
     companion object {
         const val TAG = "MainFragment"
         const val SIGN_IN_RESULT_CODE = 1001
-        const val SIGN_IN_REQUEST_CODE = 1000
     }
 
     // Get a reference to the ViewModel scoped to this Fragment
@@ -52,7 +51,7 @@ class MainFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == SIGN_IN_REQUEST_CODE){
+        if (requestCode == SIGN_IN_RESULT_CODE){
             val response = IdpResponse.fromResultIntent(data)
             if (resultCode == Activity.RESULT_OK){
                 Log.i(TAG, "Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!")
@@ -102,6 +101,6 @@ class MainFragment : Fragment() {
         startActivityForResult(AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)
-            .build(), SIGN_IN_REQUEST_CODE)
+            .build(), SIGN_IN_RESULT_CODE)
     }
 }
